@@ -18,10 +18,13 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     goals: 'package'
 
-- task: AzureCLI@1
-  displayName: 'Azure CLI '
+- task: AzureWebApp@1
+  displayName: 'Azure Web App Deploy: ronailinux'
   inputs:
     azureSubscription: 'RMPM-New'
-    scriptLocation: inlineScript
-    inlineScript: 'az --version || call az account show'
+    appType: webAppLinux
+    appName: ronailinux
+    package: '$(System.DefaultWorkingDirectory)/**/*.war'
+    runtimeStack: 'JAVA|8-jre8'
+
 

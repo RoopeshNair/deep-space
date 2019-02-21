@@ -19,11 +19,10 @@ steps:
     goals: 'package'
 
 - task: AzureWebApp@1
-  displayName: 'Azure Web App Deploy: ronailinux'
+  displayName: 'Azure Web App Deploy - ronaiwebapp'
   inputs:
     azureSubscription: 'RMPM-New'
-    appType: webAppLinux
-    appName: ronailinux
+    appName: ronaiwebapp
     package: '$(System.DefaultWorkingDirectory)/**/*.war'
     runtimeStack: 'JAVA|8-jre8'
 

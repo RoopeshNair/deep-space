@@ -21,7 +21,7 @@ steps:
 - task: AzureCLI@1
   displayName: 'Azure CLI '
   inputs:
-    azureSubscription: RMPM
+    azureSubscription: 'RMPM-New'
     scriptLocation: inlineScript
     inlineScript: 'az --version || call az account show'
 

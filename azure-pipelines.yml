@@ -17,3 +17,15 @@ steps:
     publishJUnitResults: false
     testResultsFiles: '**/TEST-*.xml'
     goals: 'package'
+
+- task: AzurePowerShell@3
+  displayName: 'List web Apps'
+  inputs:
+    azureSubscription: 'RMPM (afc11291-9826-46be-b852-70349146ddf8)'
+    ScriptType: InlineScript
+    Inline: |
+     # You can write your azure powershell scripts inline here. 
+     # You can also pass predefined and custom variables to this script using arguments
+     
+     Get-AzureRmWebApp
+    azurePowerShellVersion: LatestVersion

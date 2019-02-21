@@ -18,14 +18,10 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     goals: 'package'
 
-- task: AzurePowerShell@3
-  displayName: 'List web Apps'
+- task: AzureCLI@1
+  displayName: 'Azure CLI '
   inputs:
-    azureSubscription: 'RMPM-New'
-    ScriptType: InlineScript
-    Inline: |
-     # You can write your azure powershell scripts inline here. 
-     # You can also pass predefined and custom variables to this script using arguments
-     
-     Get-AzureRmWebApp
-    azurePowerShellVersion: LatestVersion
+    azureSubscription: RMPM
+    scriptLocation: inlineScript
+    inlineScript: 'az --version || call az account show'
+

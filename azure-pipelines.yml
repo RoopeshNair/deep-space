@@ -1,29 +1,23 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
 
-pool:
-  vmImage: 'Ubuntu 16.04'
-
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.10'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: false
-    testResultsFiles: '**/TEST-*.xml'
-    goals: 'package'
-
-- task: AzureWebApp@1
-  displayName: 'Azure Web App Deploy - ronaiwebapp'
-  inputs:
-    azureSubscription: 'RMPM-New'
-    appName: ronaiwebapp
-    package: '$(System.DefaultWorkingDirectory)/**/*.war'
-    runtimeStack: 'JAVA|8-jre8'
-
-
+jobs:
+  - deployment: Aksjob
+    environment: smarthotel360-test
+    pool: prodpool
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+           - script: echo Hello, world!
+             displayName: 'Run a one-line script'
+           - task: Kubernetes@1
+             displayName: 'kubectl get'
+             inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceEndpoint: muthuk-manualconnection
+              namespace: 'default'
+              command: get
+              arguments: pods
